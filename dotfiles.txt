@@ -1,0 +1,35 @@
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/uchiumi/dotfiles/.git/
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git add dotfiles.txt
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git commit -m "[Add] index"
+[master (root-commit) 9c56217] [Add] index
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 dotfiles.txt
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git log
+commit 9c562171e8b8ab2bec5f7d33016eb6e90896fe3f (HEAD -> master)
+Author: uchiumi-moocha <mikazuki.torako@gmail.com>
+Date:   Mon Feb 1 14:54:56 2021 +0900
+
+    [Add] index
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git remote add origin https://github.com/uchiumi-moocha/dotfiles.git
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ git push origin master
+Username for 'https://github.com': uchiumi-moocha
+Password for 'https://uchiumi-moocha@github.com': 
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 225 bytes | 225.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/uchiumi-moocha/dotfiles.git
+ * [new branch]      master -> master
+[uchiumi@uchiumi-vgncr72bw dotfiles]$ 
+
