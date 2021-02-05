@@ -79,8 +79,8 @@ set nofoldenable
 set cursorline
 " シンタックスハイライト
 syntax on
-" 256色対応
-set t_Co=256
+" TrueColor対応
+set termguicolors
 
 " 操作設定 ------------------------------------------
 " マウス有効化
@@ -118,15 +118,25 @@ call plug#begin()
 
 Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-register'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-scripts/YankRing.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
 
 " colorscheme
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'aadhav-n1/punchy.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'seesleestak/duo-mini'
+Plug 'vim-scripts/Ambient-Color-Scheme'
+Plug 'arzg/vim-colors-xcode'
+Plug 'cormacrelf/vim-colors-github'
+Plug 'reedes/vim-colors-pencil'
 
 call plug#end()
 
@@ -134,7 +144,9 @@ call plug#end()
 
 " NERDTree <Leader>+n で起動する
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+" 起動時に表示
 autocmd StdinReadPre * let s:std_in=1
+" ファイル指定時は非表示
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden = 1
@@ -143,22 +155,33 @@ let NERDTreeShowHidden = 1
 nmap <C-m> <Plug>AirlineSelectPrevTab
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='onehalflight'
-nnoremap <silent> <space>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
 
-" FZF
+" CtrlP
+let g:ctrlp_extensions = ['dir', 'register']
+" キャッシュを使用して検索を高速化
+let g:ctrlp_use_caching = 1
+" vim終了時にキャッシュをクリアしない
+let g:ctrlp_clear_cache_on_exit = 0
+" 隠しファイルを表示しない
+let g:ctrlp_show_hidden = 1
+nnoremap <silent> <Leader>b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Leader>r :<C-u>CtrlPRegister<CR>
+nnoremap <silent> <Leader><Leader> :<C-u>CtrlPMRUFiles<CR>
+
+"FZF
 " Terminal buffer options for fzf
 autocmd! FileType fzf
 autocmd  FileType fzf set noshowmode noruler nonu
 
-" nnoremap <silent> <Leader><Leader> :Files<CR>
-nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
-nnoremap <silent> <Leader>c  :Colors<CR>
-nnoremap <silent> <Leader>b  :Buffers<CR>
-nnoremap <silent> <Leader>L  :Lines<CR>
-nnoremap <silent> <Leader>h  :History, Buffers<CR>
+nnoremap <silent> <Leader>zf  :Files<CR>
+nnoremap <silent> <Leader>zc  :Colors<CR>
+nnoremap <silent> <Leader>zb  :Buffers<CR>
+nnoremap <silent> <Leader>zL  :Lines<CR>
+nnoremap <silent> <Leader>zz  :History, Buffers<CR>
 
 " colorscheme
-colorscheme onehalflight
+colorscheme xcodelight
+
 
 
 " pluginの設定-end ----------------------------
