@@ -18,7 +18,7 @@ set wildmenu
 " スワップファイルを作成しない
 set noswapfile
 " ヤンクでクリップボードにコピー
-set clipboard=unnamed,autoselect
+set clipboard=unnamedplus
 " すべての数を10進数として扱う
 set nrformats=
 " 日本語ヘルプ優先
@@ -79,8 +79,8 @@ set nofoldenable
 set cursorline
 " シンタックスハイライト
 syntax on
-" TrueColor対応
-set termguicolors
+
+
 
 " 操作設定 ------------------------------------------
 " マウス有効化
@@ -96,6 +96,11 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+" 分割画面移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 
 " fcitx EcsでIME停止 - - - - - - - - - - - -
@@ -127,7 +132,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/vim-easy-align'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-surround'
+
+Plug 'vim-jp/vimdoc-ja'
 
 " colorscheme
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -137,13 +147,18 @@ Plug 'vim-scripts/Ambient-Color-Scheme'
 Plug 'arzg/vim-colors-xcode'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'reedes/vim-colors-pencil'
+Plug 'ayu-theme/ayu-vim' " or other package manager
+
 
 call plug#end()
 
 " pluginの設定 --------------------------------
 
-" NERDTree <Leader>+n で起動する
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+set helplang=ja,en
+
+
+" NERDTree Ctrl+n で起動する
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 " 起動時に表示
 autocmd StdinReadPre * let s:std_in=1
 " ファイル指定時は非表示
@@ -152,9 +167,9 @@ let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden = 1
 
 " airline Ctrl-mでバッファの移動
-nmap <C-m> <Plug>AirlineSelectPrevTab
+nmap <Leader>m <Plug>AirlineSelectPrevTab
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='onehalflight'
+let g:airline_theme='ayu'
 
 " CtrlP
 let g:ctrlp_extensions = ['dir', 'register']
@@ -172,15 +187,27 @@ nnoremap <silent> <Leader><Leader> :<C-u>CtrlPMRUFiles<CR>
 " Terminal buffer options for fzf
 autocmd! FileType fzf
 autocmd  FileType fzf set noshowmode noruler nonu
-
 nnoremap <silent> <Leader>zf  :Files<CR>
 nnoremap <silent> <Leader>zc  :Colors<CR>
 nnoremap <silent> <Leader>zb  :Buffers<CR>
 nnoremap <silent> <Leader>zL  :Lines<CR>
 nnoremap <silent> <Leader>zz  :History, Buffers<CR>
 
-" colorscheme
-colorscheme xcodelight
+" Start interactive EasyAlign in visual mode
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" マークダウンプレビュー
+nnoremap <silent> <Leader>mp :MarkdownPreview<CR>
+
+" カラースキーム
+set background=light
+set termguicolors  " TrueColor対応
+let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
 
 
