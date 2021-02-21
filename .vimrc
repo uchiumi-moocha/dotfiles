@@ -68,7 +68,7 @@ set softtabstop=2
 " ファイル内にあるタブ文字の表示幅
 set tabstop=2
 " タブをスペースに変換する
-set expandtab
+" set expandtab
 " 対応する括弧を強調表示
 set showmatch
 " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
@@ -80,11 +80,9 @@ set cursorline
 " シンタックスハイライト
 syntax on
 
-
-
 " 操作設定 ------------------------------------------
 " マウス有効化
-set mouse=a
+" set mouse=a
 " ノーマルモード切り替えの遅延をなくす
 set ttimeoutlen=50
 " コマンドラインの履歴を10000件保存する
@@ -121,11 +119,11 @@ autocmd InsertLeave * call Fcitx2en()
 " vim-plug ::::::::::::::::::::::::::::::::::::
 call plug#begin()
 
-Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-register'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -134,16 +132,17 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
+Plug 'plasticboy/vim-markdown', { 'for': 'md' }
+Plug 'simeji/winresizer'
+
+Plug 'qpkorr/vim-renamer', { 'on': 'Renamer' }
+Plug 'itchyny/calendar.vim'
 
 Plug 'vim-jp/vimdoc-ja'
 
 " colorscheme
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'nanotech/jellybeans.vim'
-Plug 'seesleestak/duo-mini'
-Plug 'vim-scripts/Ambient-Color-Scheme'
 Plug 'arzg/vim-colors-xcode'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'reedes/vim-colors-pencil'
@@ -159,20 +158,15 @@ set helplang=ja,en
 
 " NERDTree Ctrl+n で起動する
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-" 起動時に表示
-autocmd StdinReadPre * let s:std_in=1
-" ファイル指定時は非表示
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden = 1
 
 " airline Ctrl-mでバッファの移動
 nmap <Leader>m <Plug>AirlineSelectPrevTab
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='ayu'
 
 " CtrlP
-let g:ctrlp_extensions = ['dir', 'register']
+let g:ctrlp_extensions = ['dir', 'register', 'cmdpalette']
 " キャッシュを使用して検索を高速化
 let g:ctrlp_use_caching = 1
 " vim終了時にキャッシュをクリアしない
@@ -198,20 +192,41 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" vim_markdown
+" コードブロック(`)の表示
+let g:vim_markdown_conceal_code_blocks = 0
+" 折りたたみしない
+let g:vim_markdown_folding_disabled = 1
+
 " マークダウンプレビュー
 nnoremap <silent> <Leader>mp :MarkdownPreview<CR>
+
+" winresizer
+let g:winresizer_vert_resize = 2
+let g:winresizer_horiz_resize = 2
 
 " カラースキーム
 set background=light
 set termguicolors  " TrueColor対応
-let ayucolor="light"  " for light version of theme
+" let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
+colorscheme xcodelight
 
 
 
 " pluginの設定-end ----------------------------
+
+" <Leader> + xでRanger
+function RangerExplorer()
+    exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+    if filereadable('/tmp/vim_ranger_current_file')
+        exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+        call system('rm /tmp/vim_ranger_current_file')
+    endif
+    redraw!
+endfun
+map <Leader>x :call RangerExplorer()<CR>
 
 " 追加スクリプト ::::::::::::::::::::::::::::::
 " SyntaxInfo < 色情報取得 >
