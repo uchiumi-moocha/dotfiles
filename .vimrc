@@ -123,7 +123,6 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'vim-airline/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-register'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -133,11 +132,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'tpope/vim-surround'
+Plug 'raimondi/delimitmate'
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
 Plug 'simeji/winresizer'
+Plug 'deton/jasegment.vim'
+Plug 'mhinz/vim-startify'
 
 Plug 'qpkorr/vim-renamer', { 'on': 'Renamer' }
 Plug 'itchyny/calendar.vim'
+Plug 'reireias/vim-cheatsheet'
 
 Plug 'vim-jp/vimdoc-ja'
 
@@ -166,7 +169,7 @@ nmap <Leader>m <Plug>AirlineSelectPrevTab
 let g:airline#extensions#tabline#enabled = 1
 
 " CtrlP
-let g:ctrlp_extensions = ['dir', 'register', 'cmdpalette']
+let g:ctrlp_extensions = ['dir', 'register']
 " キャッシュを使用して検索を高速化
 let g:ctrlp_use_caching = 1
 " vim終了時にキャッシュをクリアしない
@@ -176,6 +179,54 @@ let g:ctrlp_show_hidden = 1
 nnoremap <silent> <Leader>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Leader>r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> <Leader><Leader> :<C-u>CtrlPMRUFiles<CR>
+
+"  Startify
+let g:startify_bookmarks = [ '/home/uchiumi/Desktop/vimのネタ' ]
+let g:startify_change_to_dir = 1
+let g:startify_change_to_vcs_root = 1
+let g:ascii = [
+        \ '(・ω<) Chu,,, ♥ Vim ♥',
+        \]
+let g:startify_custom_header = g:ascii + startify#fortune#boxed()
+let g:startify_enable_special = -1
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   MRU'] },
+          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions'] },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
+          \ ]
+let g:startify_skiplist = [
+        \ '^/tmp',
+        \ '.swap$',
+        \ '.tmp$',
+        \ ]
+let g:startify_update_oldfiles = 1
+
+" For Misc options
+let g:startify_commands = []
+let g:startify_custom_footer = ['----------------------------------------- Startify --']
+let g:startify_disable_at_vimenter = 0
+let g:startify_enable_unsafe = 0
+let g:startify_files_number = 5
+let g:startify_fortune_use_unicode = 0
+let g:startify_padding_left = 4
+let g:startify_relative_path = 1
+let g:startify_use_env = 1
+
+" For Sessions     
+let g:startify_session_autoload = 1     
+let g:startify_session_before_save = ['echo "Saving this session ..."']    
+let g:startify_session_delete_buffers = 0     
+let g:startify_session_dir = '~/.vim/session'     
+let g:startify_session_number = 20     
+let g:startify_session_persistence = 1     
+let g:startify_session_remove_lines = ['setlocal', 'winheight']    
+let g:startify_session_savecmds = ['echo "Saved a session."']
+let g:startify_session_savevars = [    
+           \ 'g:startify_session_savevars',    
+           \ 'g:startify_session_savecmds',    
+           \ ]    
+let g:startify_session_sort = 1
 
 "FZF
 " Terminal buffer options for fzf
@@ -204,6 +255,10 @@ nnoremap <silent> <Leader>mp :MarkdownPreview<CR>
 " winresizer
 let g:winresizer_vert_resize = 2
 let g:winresizer_horiz_resize = 2
+
+" Cheat_vim
+let g:cheatsheet#cheat_file = '/home/uchiumi/Cheat_vim.md'
+nnoremap <Leader>?  :Cheat<CR>
 
 " カラースキーム
 set background=light
