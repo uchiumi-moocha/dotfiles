@@ -1,0 +1,17 @@
+# ~/.config/alacritty/alacritty.toml
+
+[general]
+import = ["~/.config/alacritty/themes/themes/gruvbox_dark.toml"]
+
+[window]
+opacity = 0.85
+
+[selection]
+save_to_clipboard = true
+
+[mouse]
+bindings = [
+{ mouse = "Left", mods = "Control", action = "Paste" },
+{ mouse = "Right", mods = "Control", action = "Copy" },
+]
+

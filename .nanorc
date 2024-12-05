@@ -1,0 +1,19 @@
+
+# Settings
+set autoindent    #インテンドを揃える
+set backup        #[file name]~で保存
+set cutfromcursor #切取を現在地から行末までに
+set linenumbers   #左端に行表示
+set zap           #指定範囲を削除可能に
+set softwrap      #長文折返し
+
+# Color　文字,背景
+set titlecolor lightwhite,blue
+set numbercolor white,lightblack
+set selectedcolor white
+set statuscolor yellow
+set keycolor white
+set functioncolor blue
+
+# red, green, blue, magenta, yellow, cyan, white, and black
+# pink, purple, mauve, lagoon, mint, lime, peach, orange, latte, rosy, beet, plum, sea, sky, slate, teal, sage, brown, ocher, sand, tawny, brick, crimson, and normal
